@@ -1,0 +1,44 @@
+version: "3.1"
+
+nlu:
+- intent: saudacao
+  examples: |
+    - oi
+    - olá suporte
+    - preciso de ajuda
+    - meu computador quebrou
+    - socorro
+    - oie
+    - bom dia
+    - boa tarde
+
+- intent: como_esta
+  examples: |
+    - tudo bem?
+    - como você está?
+    - oie, tudo bem?
+    - tudo certo?
+
+- intent: despedida
+  examples: |
+    - valeu
+    - obrigado
+    - tchau
+    - resolveu, obrigado
+
+- intent: relatar_problema
+  examples: |
+    - meu pc tá com muita [lentidão](problema)
+    - o pc está muito [lento](problema)
+    - o sistema está [travando](problema) demais
+    - estou sem [internet](problema)
+    - a [internet](problema) caiu
+    - meu [wifi](problema) não está funcionando
+    - o [wi-fi](problema) consta ativo mas não carrega
+    - minha [rede](problema) caiu
+    - deu [tela azul](problema) no meu monitor
+    - o pc deu [tela azul](problema)
+    - acho que peguei um [vírus](problema)
+    - tem um [vírus](problema) no meu pendrive
+    - a [impressora](problema) não funciona
+    - não consigo usar a [impressora](problema)

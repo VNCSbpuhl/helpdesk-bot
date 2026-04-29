@@ -1,0 +1,31 @@
+version: "3.1"
+
+intents:
+  - saudacao
+  - despedida
+  - relatar_problema
+  - como_esta
+
+entities:
+  - problema
+
+slots:
+  problema:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: problema
+
+responses:
+  utter_saudacao:
+  - text: "Olá! Sou o Bot de Suporte de TI. Qual sintoma o seu equipamento está apresentando hoje? (Ex: lentidão, internet, tela azul, vírus, impressora)"
+
+  utter_como_esta:
+  - text: "Sistemas operando 100% e CPU resfriada! 🤖 Como posso ajudar com o seu equipamento hoje?"
+
+  utter_despedida:
+  - text: "Qualquer outra dúvida, é só abrir um novo chamado. Bom trabalho!"
+
+actions:
+  - action_resolver_problema

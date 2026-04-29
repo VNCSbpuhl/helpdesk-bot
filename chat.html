@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Bot - Suporte TI</title>
+    <style>
+        /* Tema de Tecnologia / Suporte TI */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+
+        .chat-container { 
+            width: 100%; 
+            max-width: 450px; 
+            background: #1e293b; 
+            border: 1px solid #334155; 
+            border-radius: 12px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+            display: flex; 
+            flex-direction: column; 
+            height: 85vh; 
+            overflow: hidden; 
+        }
+
+        .chat-header { 
+            background: #0ea5e9; 
+            color: #ffffff; 
+            padding: 18px; 
+            text-align: center; 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        #messages { 
+            flex: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            background-color: #0f172a;
+        }
+
+        .msg-bubble { 
+            max-width: 85%; 
+            padding: 14px 18px; 
+            border-radius: 12px; 
+            font-size: 0.95rem; 
+            line-height: 1.5; 
+            word-wrap: break-word; 
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .user { 
+            align-self: flex-end; 
+            background: #0ea5e9; 
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot { 
+            align-self: flex-start; 
+            background: #334155; 
+            color: #f1f5f9;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #475569;
+        }
+
+        .input-area { 
+            display: flex; 
+            padding: 15px; 
+            background: #1e293b; 
+            border-top: 1px solid #334155; 
+            gap: 10px;
+        }
+
+        input { 
+            flex: 1; 
+            padding: 14px 15px; 
+            border: 1px solid #475569; 
+            border-radius: 8px; 
+            background: #0f172a; 
+            color: white; 
+            font-size: 1rem;
+            outline: none; 
+            transition: border-color 0.3s;
+        }
+        input:focus { border-color: #38bdf8; }
+        
+        button { 
+            background: #0ea5e9; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 0 20px;
+            font-weight: bold;
+            cursor: pointer; 
+        }
+        button:hover { background: #0284c7; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">💻 Helpdesk Bot</div>
+        <div id="messages">
+            <div class="msg-bubble bot">Olá! Sou o Bot de Suporte de TI. Qual sintoma o seu equipamento está apresentando hoje? (Ex: lentidão, internet, tela azul, vírus, impressora)</div>
+        </div>
+        <div class="input-area">
+            <input id="msg" type="text" placeholder="Descreva o problema..." autocomplete="off" />
+            <button onclick="enviar()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        const RASA = "http://localhost:5005/webhooks/rest/webhook";
+        const box = document.getElementById("messages");
+        const inp = document.getElementById("msg");
+
+        function mostrar(texto, quem) {
+            const div = document.createElement("div");
+            div.className = `msg-bubble ${quem}`;
+            div.innerHTML = texto.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        async function enviar() {
+            const texto = inp.value.trim();
+            if (!texto) return;
+            mostrar(texto, "user");
+            inp.value = "";
+
+            try {
+                const res = await fetch(RASA, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sender: "usuario", message: texto })
+                });
+                const data = await res.json();
+                if (data.length === 0) {
+                    mostrar("Não consegui entender. Pode descrever de outra forma?", "bot");
+                } else {
+                    data.forEach(r => { if (r.text) mostrar(r.text, "bot"); });
+                }
+            } catch (error) {
+                mostrar("Erro de conexão com o servidor Rasa.", "bot");
+            }
+        }
+
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") enviar(); });
+    </script>
+</body>
+</html>
