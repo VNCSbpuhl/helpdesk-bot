@@ -1,91 +1,115 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+#### Testes dos fluxos reais do helpdesk bot
+#### https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
+- story: teste fluxo completo - lentidao
   steps:
   - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
+      oi, preciso de ajuda
+    intent: saudacao
+  - action: utter_saudacao
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+      meu pc está muito lento
+    intent: relatar_problema
+    entities:
+    - problema: lentidão
+  - action: action_resolver_problema
+  - user: |
+      obrigado, resolveu
+    intent: despedida
+  - action: utter_despedida
 
-- story: happy path 2
+- story: teste fluxo completo - internet
   steps:
   - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
+      bom dia
+    intent: saudacao
+  - action: utter_saudacao
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+      estou sem internet
+    intent: relatar_problema
+    entities:
+    - problema: internet
+  - action: action_resolver_problema
   - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+      valeu
+    intent: despedida
+  - action: utter_despedida
 
-- story: sad path 1
+- story: teste fluxo completo - tela azul
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      oi
+    intent: saudacao
+  - action: utter_saudacao
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+      deu tela azul no meu computador
+    intent: relatar_problema
+    entities:
+    - problema: tela azul
+  - action: action_resolver_problema
   - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+      obrigado
+    intent: despedida
+  - action: utter_despedida
 
-- story: sad path 2
+- story: teste fluxo completo - virus
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      preciso de ajuda
+    intent: saudacao
+  - action: utter_saudacao
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+      acho que peguei um vírus
+    intent: relatar_problema
+    entities:
+    - problema: vírus
+  - action: action_resolver_problema
   - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+      tchau
+    intent: despedida
+  - action: utter_despedida
 
-- story: sad path 3
+- story: teste fluxo completo - impressora
   steps:
   - user: |
-      hi
-    intent: greet
-  - action: utter_greet
+      oi suporte
+    intent: saudacao
+  - action: utter_saudacao
   - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+      a impressora não funciona
+    intent: relatar_problema
+    entities:
+    - problema: impressora
+  - action: action_resolver_problema
   - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+      resolveu, obrigado
+    intent: despedida
+  - action: utter_despedida
 
-- story: say goodbye
+- story: teste problema direto sem saudacao
   steps:
   - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+      meu wifi não está funcionando
+    intent: relatar_problema
+    entities:
+    - problema: internet
+  - action: action_resolver_problema
+  - user: |
+      valeu
+    intent: despedida
+  - action: utter_despedida
 
-- story: bot challenge
+- story: teste saudacao simples
   steps:
   - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+      boa tarde
+    intent: saudacao
+  - action: utter_saudacao
+
+- story: teste despedida direta
+  steps:
+  - user: |
+      tchau, obrigado
+    intent: despedida
+  - action: utter_despedida

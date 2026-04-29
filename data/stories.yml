@@ -1,11 +1,47 @@
 version: "3.1"
 
 stories:
-- story: Caminho do suporte tecnico
+- story: Caminho do suporte tecnico completo
   steps:
   - intent: saudacao
   - action: utter_saudacao
   - intent: relatar_problema
   - action: action_resolver_problema
+  - intent: despedida
+  - action: utter_despedida
+
+- story: Problema direto sem saudacao
+  steps:
+  - intent: relatar_problema
+  - action: action_resolver_problema
+  - intent: despedida
+  - action: utter_despedida
+
+- story: Saudacao com verificacao de status
+  steps:
+  - intent: saudacao
+  - action: utter_saudacao
+  - intent: como_esta
+  - action: utter_como_esta
+  - intent: relatar_problema
+  - action: action_resolver_problema
+  - intent: despedida
+  - action: utter_despedida
+
+- story: Multiplos problemas
+  steps:
+  - intent: saudacao
+  - action: utter_saudacao
+  - intent: relatar_problema
+  - action: action_resolver_problema
+  - intent: relatar_problema
+  - action: action_resolver_problema
+  - intent: despedida
+  - action: utter_despedida
+
+- story: Despedida apos saudacao sem problema
+  steps:
+  - intent: saudacao
+  - action: utter_saudacao
   - intent: despedida
   - action: utter_despedida

@@ -11,6 +11,16 @@ nlu:
     - oie
     - bom dia
     - boa tarde
+    - boa noite
+    - olá
+    - oi, tudo bem?
+    - alô
+    - ei, preciso de suporte
+    - olá, boa tarde
+    - oi, pode me ajudar?
+    - preciso de suporte técnico
+    - tem alguém aí?
+    - quero ajuda com meu computador
 
 - intent: como_esta
   examples: |
@@ -18,6 +28,11 @@ nlu:
     - como você está?
     - oie, tudo bem?
     - tudo certo?
+    - como vai?
+    - tá tudo ok?
+    - como você tá?
+    - tudo bem contigo?
+    - e aí, tudo certo?
 
 - intent: despedida
   examples: |
@@ -25,20 +40,86 @@ nlu:
     - obrigado
     - tchau
     - resolveu, obrigado
+    - muito obrigado
+    - até mais
+    - até logo
+    - obrigado pela ajuda
+    - resolveu sim, valeu
+    - pode fechar
+    - era isso, obrigado
+    - consegui resolver, thanks
+    - show, resolveu
+    - ok, consegui, obrigado
+    - funcionou, valeu
 
 - intent: relatar_problema
   examples: |
     - meu pc tá com muita [lentidão](problema)
     - o pc está muito [lento](problema)
     - o sistema está [travando](problema) demais
+    - meu computador está [travando](problema)
+    - o pc fica [travando](problema) toda hora
+    - está muito [lento](problema) hoje
+    - o notebook está [lento](problema) demais
+    - aplicativos ficam [travando](problema)
+    - o sistema está [lento](problema) pra caramba
+    - tá [lentidão](problema) aqui no meu pc
+    - minha máquina ficou [lenta](problema)
     - estou sem [internet](problema)
     - a [internet](problema) caiu
     - meu [wifi](problema) não está funcionando
     - o [wi-fi](problema) consta ativo mas não carrega
     - minha [rede](problema) caiu
+    - sem [conexão](problema) com a internet
+    - não consigo me conectar à [internet](problema)
+    - a [internet](problema) está caindo
+    - o [wifi](problema) conecta mas não acessa nada
+    - sem [rede](problema) aqui
+    - [internet](problema) lenta demais
+    - o [cabo de rede](problema) não funciona
     - deu [tela azul](problema) no meu monitor
     - o pc deu [tela azul](problema)
+    - apareceu [tela azul](problema) do nada
+    - reiniciou e deu [tela azul](problema)
+    - está dando [BSOD](problema)
     - acho que peguei um [vírus](problema)
     - tem um [vírus](problema) no meu pendrive
+    - meu pc está com [malware](problema)
+    - acho que tem [vírus](problema) no sistema
+    - o antivírus encontrou um [vírus](problema)
+    - tem um [malware](problema) no meu computador
     - a [impressora](problema) não funciona
     - não consigo usar a [impressora](problema)
+    - a [impressora](problema) não imprime
+    - a [impressora](problema) está offline
+    - documento preso na fila da [impressora](problema)
+    - a [impressora](problema) aparece desconectada
+    - não reconhece a [impressora](problema)
+
+- synonym: lentidão
+  examples: |
+    - lento
+    - lenta
+    - travando
+    - travamento
+    - lentidão
+
+- synonym: internet
+  examples: |
+    - wifi
+    - wi-fi
+    - rede
+    - conexão
+    - cabo de rede
+    - internet
+
+- synonym: tela azul
+  examples: |
+    - BSOD
+    - tela azul
+
+- synonym: vírus
+  examples: |
+    - malware
+    - vírus
+    - virus
