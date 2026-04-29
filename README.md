@@ -33,10 +33,71 @@ O bot utiliza Processamento de Linguagem Natural (PLN) e uma lógica de mapeamen
 ## 🏃 Como Executar o Projeto
 
 ### 1. Preparar o Ambiente
-Certifique-se de que o ambiente virtual está ativo:
-```bash
-# Ativar ambiente (Windows)
-venv\Scripts\activate
 
-# Instalar o Rasa (caso ainda não tenha no ambiente)
+Clone o repositório e crie o ambiente virtual:
+
+```bash
+git clone https://github.com/VNCSbpuhl/helpdesk-bot.git
+cd helpdesk-bot
+python3 -m venv .venv
+```
+
+Ative o ambiente virtual:
+
+```bash
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
+```
+
+Instale o Rasa:
+
+```bash
 pip install rasa
+```
+
+### 2. Treinar o Modelo
+
+```bash
+rasa train
+```
+
+### 3. Rodar o Bot
+
+Abra **dois terminais** na pasta do projeto com o ambiente virtual ativo.
+
+**Terminal 1 — Servidor principal do Rasa:**
+```bash
+rasa run --enable-api --cors "*"
+```
+
+**Terminal 2 — Servidor de ações customizadas:**
+```bash
+rasa run actions
+```
+
+### 4. Abrir a Interface
+
+Com os dois servidores rodando, abra o arquivo `chat.html` no navegador.
+
+```bash
+# macOS
+open chat.html
+
+# Linux
+xdg-open chat.html
+```
+
+---
+
+## 💬 Exemplos de uso
+
+| Mensagem do usuário | Problema identificado |
+|---|---|
+| "meu pc está travando" | Lentidão |
+| "sem internet" | Conexão |
+| "deu tela azul" | Tela Azul (BSOD) |
+| "acho que peguei um vírus" | Vírus/Malware |
+| "a impressora não imprime" | Impressora |
